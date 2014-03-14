@@ -4,6 +4,7 @@ import (
 	"flag"
 	"github.com/ciarand/martini-fileindex"
 	"github.com/codegangsta/martini"
+	"log"
 	"net/http"
 )
 
@@ -18,7 +19,7 @@ func main() {
 		fileindex.ListFiles("."),
 	)
 
-	http.ListenAndServe(":"+port, m)
+	log.Fatal(http.ListenAndServe(":"+port, m))
 }
 
 func parseFlags() (port string) {
