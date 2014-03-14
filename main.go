@@ -6,20 +6,16 @@ import (
 	"github.com/codegangsta/martini"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 	port := parseFlags()
 
-	m := martini.Classic()
+	server := New()
 
-	m.Handlers(
-		martini.Logger(),
-		martini.Static("."),
-		fileindex.ListFiles("."),
-	)
-
-	log.Fatal(http.ListenAndServe(":"+port, m))
+	server.Logger.Println("listening on 127.0.0.1:" + port)
+	server.Logger.Fatal(http.ListenAndServe(":"+port, server))
 }
 
 func parseFlags() (port string) {
@@ -28,4 +24,23 @@ func parseFlags() (port string) {
 	flag.Parse()
 
 	return port
+}
+
+type Deserv struct {
+	*martini.ClassicMartini
+	Logger *log.Logger
+}
+
+func New() *Deserv {
+	d := &Deserv{martini.Classic(), log.New(os.Stdout, "[deserv] ", 0)}
+
+	d.Handlers(
+		martini.Logger(),
+		martini.Static("."),
+		fileindex.ListFiles("."),
+	)
+
+	d.Map(d.Logger)
+
+	return d
 }
