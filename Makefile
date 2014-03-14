@@ -2,7 +2,7 @@ run:
 	go run main.go
 
 compile:
-	goxc
+	goxc -build-ldflags "-s"
 
 test:
 	go test
