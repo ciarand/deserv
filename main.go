@@ -10,20 +10,25 @@ import (
 )
 
 func main() {
-	port := parseFlags()
+	port, location := parseArgs()
 
-	server := New()
+	server := New(location)
 
 	server.Logger.Println("listening on 127.0.0.1:" + port)
 	server.Logger.Fatal(http.ListenAndServe(":"+port, server))
 }
 
-func parseFlags() (port string) {
+func parseArgs() (port string, loc string) {
 	// setup, then parse flags
 	flag.StringVar(&port, "port", "3000", "The port to bind to")
 	flag.Parse()
 
-	return port
+	loc = flag.Arg(0)
+	if loc == "" {
+		loc = "."
+	}
+
+	return port, loc
 }
 
 type Deserv struct {
@@ -31,13 +36,13 @@ type Deserv struct {
 	Logger *log.Logger
 }
 
-func New() *Deserv {
+func New(location string) *Deserv {
 	d := &Deserv{martini.Classic(), log.New(os.Stdout, "[deserv] ", 0)}
 
 	d.Handlers(
 		martini.Logger(),
-		martini.Static("."),
-		fileindex.ListFiles("."),
+		martini.Static(location),
+		fileindex.ListFiles(location),
 	)
 
 	d.Map(d.Logger)
