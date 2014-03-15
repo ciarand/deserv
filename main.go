@@ -43,6 +43,7 @@ func New(location string) *Deserv {
 		martini.Logger(),
 		martini.Static(location),
 		fileindex.ListFiles(location),
+		martini.Recovery(),
 	)
 
 	d.Map(d.Logger)
