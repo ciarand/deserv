@@ -30,7 +30,7 @@ There aren't any. Deal with it. You can still run `make test` if you like.
 
 ```
 go test
-?       github.com/ciarand/deserv-dev   [no test files]
+?       github.com/ciarand/deserv   [no test files]
 ```
 
 Building
