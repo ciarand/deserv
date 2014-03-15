@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Deserv : A simple development server written in Go" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Deserv</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ciarand/deserv">View on GitHub</a>
+
+          <h1 id="project_title">Deserv</h1>
+          <h2 id="project_tagline">A simple development server written in Go</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ciarand/deserv/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ciarand/deserv/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a name="deserv" class="anchor" href="#deserv"><span class="octicon octicon-link"></span></a>Deserv</h1>
+
+<blockquote>
+<p>A simple development server written in Go</p>
+</blockquote>
+
+<p>Intended to provide functionality similar to the ones listed <a href="https://gist.github.com/willurd/5720255">here</a>. It
+provides directory listings and that's about it in terms of bells and whistles.</p>
+
+<p>I made it because I work with Windows users who don't necessarily have anything
+cool installed on their machines. The compiled binary can be <em>double-clicked</em> to
+start, and does exactly what they need.</p>
+
+<h2>
+<a name="building" class="anchor" href="#building"><span class="octicon octicon-link"></span></a>Building</h2>
+
+<p>Should be <code>go get</code>-able.</p>
+
+<pre><code>go get github.com/ciarand/deserv
+</code></pre>
+
+<p>To update, run it with the <code>-u</code> flag.</p>
+
+<pre><code>go get -u github.com/ciarand/deserv
+</code></pre>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<pre><code># port is optional, defaults to 3000
+# "public" is the directory to serve from - defaults to .
+./deserve -port 8080 public
+</code></pre>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Deserv maintained by <a href="https://github.com/ciarand">ciarand</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
