@@ -1,42 +1,38 @@
 package main
 
 import (
-	"flag"
 	"net/http"
+	"os"
+	"strconv"
+
+	"github.com/codegangsta/cli"
 )
 
 // Begin the madness
 func main() {
-	// Get the port and location from CLI arguments
-	runWithFlags(parseArgs())
-}
+	app := cli.NewApp()
 
-func runWithFlags(flags flags) {
-	// Create a new server instance, heavily based on the Classic Martini, but
-	// with some important differences
-	server := New(flags.loc)
+	app.Name = "deserv"
+	app.Usage = "A simple development server written in Go"
 
-	// Print the start message
-	server.Logger.Println("listening on 127.0.0.1:" + flags.port)
-	// If the http.ListenAndServe method fails, log it and bail
-	server.Logger.Fatal(http.ListenAndServe(":"+flags.port, server))
-}
-
-// Parse the CLI arguments and grab the port and location from them
-func parseArgs() flags {
-	flags := flags{}
-
-	// Parse the args array for the flags
-	flags.port = *flag.String("port", "3000", "The port to bind to")
-	flag.Parse()
-
-	// Location is the first non-flag argument after parsing
-	flags.loc = flag.Arg(0)
-	// If we didn't get a location, set it to the current dir
-	if flags.loc == "" {
-		flags.loc = "."
+	app.Flags = []cli.Flag{
+		cli.IntFlag{"port, p", 3000, "The port to bind to"},
 	}
 
-	// Return the port and location
-	return flags
+	app.Action = serve
+
+	app.Run(os.Args)
+}
+
+func serve(c *cli.Context) {
+	loc := "."
+	if len(c.Args()) > 0 {
+		loc = c.Args()[0]
+	}
+
+	pstr := strconv.Itoa(c.Int("port"))
+
+	server := New(loc)
+	server.Logger.Println("listening on 127.0.0.1:" + pstr)
+	server.Logger.Fatal(http.ListenAndServe(":"+pstr, server))
 }
