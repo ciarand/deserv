@@ -1,25 +1,26 @@
 package main
 
 import (
-	"github.com/ciarand/martini-fileindex"
-	"github.com/codegangsta/martini"
 	"log"
 	"os"
+
+	"github.com/ciarand/martini-fileindex"
+	"github.com/codegangsta/martini"
 )
 
 // A parent structure that "extends" the Classic Martini and also provides
 // access to the Logger used
-type Deserv struct {
+type Server struct {
 	*martini.ClassicMartini
 	Logger *log.Logger
 }
 
-// Create a new "Deserv" struct and init it
-func New(location string) *Deserv {
+// Create a new "Server" struct and init it
+func NewServer(location string) *Server {
 	// It starts out as just a Classic Martini and a custom logger
-	d := &Deserv{martini.Classic(), log.New(os.Stdout, "[deserv] ", 0)}
+	d := &Server{martini.Classic(), log.New(os.Stdout, "["+NAME+"] ", 0)}
 
-	// Setup the handlers (middlewars) used in Deserv
+	// Setup the handlers (middlewares) used in Deserv
 	d.Handlers(
 		// We want a logger
 		martini.Logger(),
