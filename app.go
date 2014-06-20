@@ -16,6 +16,7 @@ func NewApp() *cli.App {
 
 	app.Flags = []cli.Flag{
 		cli.IntFlag{"port, p", 3000, "The port to bind to"},
+		cli.BoolFlag{"silent, s", "Whether to be silent"},
 	}
 
 	app.Action = serve
@@ -31,7 +32,7 @@ func serve(c *cli.Context) {
 
 	pstr := strconv.Itoa(c.Int("port"))
 
-	server := NewServer(loc)
+	server := NewServer(loc, c.Bool("silent"))
 	server.Logger.Println("listening on 127.0.0.1:" + pstr)
 	server.Logger.Fatal(http.ListenAndServe(":"+pstr, server))
 }

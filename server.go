@@ -1,6 +1,8 @@
 package main
 
 import (
+	"io"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -16,9 +18,16 @@ type Server struct {
 }
 
 // Create a new "Server" struct and init it
-func NewServer(location string) *Server {
+func NewServer(location string, silent bool) *Server {
+	var output io.Writer
+
+	output = os.Stdout
+	if silent {
+		output = ioutil.Discard
+	}
+
 	// It starts out as just a Classic Martini and a custom logger
-	d := &Server{martini.Classic(), log.New(os.Stdout, "["+NAME+"] ", 0)}
+	d := &Server{martini.Classic(), log.New(output, "["+NAME+"] ", 0)}
 
 	// Setup the handlers (middlewares) used in Deserv
 	d.Handlers(
