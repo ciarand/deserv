@@ -1,3 +1,5 @@
+This project is deprecated and unmaintained. Proceed with caution!
+
 Deserv
 ======
 >A simple development server written in Go
